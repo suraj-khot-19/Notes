@@ -1,4 +1,5 @@
 import 'package:firebase1/firebase_services/splash_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,12 +21,21 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return const Scaffold(
       body: Center(
-          child: Center(
-        child: Text(
-          "Loadding ...",
-          style: TextStyle(fontSize: 50),
-        ),
-      )),
+          child: SizedBox(
+              height: 200,
+              width: 200,
+              child: Column(
+                children: [
+                  CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 5,
+                  ),
+                  Text(
+                    "Loadding ...",
+                    style: TextStyle(fontSize: 10),
+                  ),
+                ],
+              ))),
     );
   }
 }

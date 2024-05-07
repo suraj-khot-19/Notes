@@ -1,3 +1,4 @@
+import 'package:firebase1/Widget/auth/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class MyHome extends StatelessWidget {
@@ -8,7 +9,16 @@ class MyHome extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("home"),
+        title: const Text("home"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return const LoginScreen();
+                }));
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
     );
   }
