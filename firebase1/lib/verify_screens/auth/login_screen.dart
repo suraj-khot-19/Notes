@@ -1,4 +1,5 @@
-import 'package:firebase1/Widget/auth/sign_up.dart';
+import 'package:firebase1/verify_screens/auth/mobile_verify.dart';
+import 'package:firebase1/verify_screens/auth/sign_up.dart';
 import 'package:firebase1/Widget/utils/utils.dart';
 import 'package:firebase1/screens/home.dart';
 import 'package:firebase1/Widget/support_widget/button.dart';
@@ -65,7 +66,6 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          automaticallyImplyLeading: false,
           title: const Text("Login Page"),
         ),
         body: Padding(
@@ -81,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 addVerticalSpace(50),
                 textField(username, "Username", true, false),
+                addVerticalSpace(20),
                 textField(password, "Password", true, true),
                 addVerticalSpace(60),
                 Button(
@@ -112,7 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: const Text(("Sign Up")),
                     )
                   ],
-                )
+                ),
+                addVerticalSpace(30),
               ],
             ),
           ),

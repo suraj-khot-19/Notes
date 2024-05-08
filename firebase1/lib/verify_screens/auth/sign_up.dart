@@ -1,4 +1,4 @@
-import 'package:firebase1/Widget/auth/login_screen.dart';
+import 'package:firebase1/verify_screens/auth/login_screen.dart';
 import 'package:firebase1/Widget/support_widget/button.dart';
 import 'package:firebase1/Widget/support_widget/controllers.dart';
 import 'package:firebase1/Widget/support_widget/sized_box.dart';
@@ -6,7 +6,7 @@ import 'package:firebase1/Widget/support_widget/text_feild.dart';
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
 
-import '../utils/utils.dart';
+import '../../Widget/utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -69,6 +69,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               addVerticalSpace(50),
               textField(username, "Username", true, false),
+              addVerticalSpace(20),
               textField(password, "Password", true, true),
               addVerticalSpace(60),
               Button(

@@ -1,6 +1,6 @@
 import 'dart:async';
-import 'package:firebase1/Widget/auth/login_screen.dart';
 import 'package:firebase1/screens/home.dart';
+import 'package:firebase1/verify_screens/auth/select_login_method.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class SplashService {
   void isLogin(BuildContext context) {
     if (user != null) {
       Timer(
-        const Duration(seconds: 3),
+        const Duration(seconds: 4),
         () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -21,11 +21,11 @@ class SplashService {
       );
     } else {
       Timer(
-        const Duration(seconds: 3),
+        const Duration(seconds: 4),
         () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
+            builder: (context) => const SelectLoginMethod(),
           ),
         ),
       );

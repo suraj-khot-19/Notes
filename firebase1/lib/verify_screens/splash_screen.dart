@@ -1,5 +1,6 @@
+import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/firebase_services/splash_service.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,20 +20,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
           child: SizedBox(
               height: 200,
               width: 200,
               child: Column(
                 children: [
-                  CircularProgressIndicator(
+                  const CircularProgressIndicator(
                     color: Colors.white,
-                    strokeWidth: 5,
+                    strokeWidth: 3,
                   ),
-                  Text(
+                  addVerticalSpace(30),
+                  const Text(
                     "Loadding ...",
-                    style: TextStyle(fontSize: 10),
+                    style: TextStyle(fontSize: 20),
                   ),
                 ],
               ))),
