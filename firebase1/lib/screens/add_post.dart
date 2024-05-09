@@ -33,7 +33,12 @@ class _MyPostScreenState extends State<MyPostScreen> {
             ),
             addVerticalSpace(80),
             textField(
-                post, "Add Post To \n Firebase DataBase", true, false, 4, null),
+              post,
+              "Add Post To \n Firebase DataBase",
+              true,
+              false,
+              4,
+            ),
             addVerticalSpace(50),
             Button(
               loading: loading,

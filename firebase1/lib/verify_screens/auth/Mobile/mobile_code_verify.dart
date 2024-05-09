@@ -37,7 +37,13 @@ class _VerifyMobileUserState extends State<VerifyMobileUser> {
                   Text("Verify Mobile Number", style: TextStyle(fontSize: 15)),
             ),
             addVerticalSpace(50),
-            textField(verifyCode, "enter 6 digit code", true, true, 1, 6),
+            textField(
+              verifyCode,
+              "enter 6 digit code",
+              true,
+              true,
+              1,
+            ),
             addVerticalSpace(30),
             Button(
                 title: "Verify",

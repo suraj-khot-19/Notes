@@ -76,7 +76,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   addVerticalSpace(50),
                   emailTextFeild(username, "Email", true, false, 1),
                   addVerticalSpace(20),
-                  textField(password, "Password", true, true, 1, null),
+                  textField(
+                    password,
+                    "Password",
+                    true,
+                    true,
+                    1,
+                  ),
                   addVerticalSpace(60),
                   Button(
                       loading: loading,

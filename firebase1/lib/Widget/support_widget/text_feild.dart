@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 Widget textField(TextEditingController controller, String title,
-    bool isRequired, bool isSecure, int maxline, int? maxlength) {
+    bool isRequired, bool isSecure, int maxline) {
   return TextFormField(
     maxLines: maxline,
-    maxLength: maxlength,
     controller: controller,
     obscureText: isSecure,
     decoration: InputDecoration(
@@ -14,7 +13,7 @@ Widget textField(TextEditingController controller, String title,
       focusColor: Colors.white,
     ),
     validator: (value) {
-      if (isRequired && (value == null || value.isEmpty)) {
+      if (value == null || value.isEmpty) {
         return 'Please enter $title';
       }
       return null;
