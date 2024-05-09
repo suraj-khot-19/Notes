@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase1/screens/home.dart';
-import 'package:firebase1/verify_screens/auth/select_login_method.dart';
+import 'package:firebase1/verify_screens/auth/Email/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class SplashService {
         () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const SelectLoginMethod(),
+            builder: (context) => const LoginScreen(),
           ),
         ),
       );

@@ -12,13 +12,13 @@ Certificate fingerprints:
 */
 
 import 'package:firebase1/Widget/utils/utils.dart';
-import 'package:firebase1/verify_screens/auth/mobile_code_verify.dart';
+import 'package:firebase1/verify_screens/auth/Mobile/mobile_code_verify.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../Widget/support_widget/button.dart';
-import '../../Widget/support_widget/controllers.dart';
-import '../../Widget/support_widget/sized_box.dart';
-import '../../Widget/support_widget/text_feild.dart';
+import '../../../Widget/support_widget/button.dart';
+import '../../../Widget/support_widget/controllers.dart';
+import '../../../Widget/support_widget/sized_box.dart';
+import '../../../Widget/support_widget/text_feild.dart';
 
 class MobileVerify extends StatefulWidget {
   const MobileVerify({super.key});
@@ -48,7 +48,9 @@ class _MobileVerifyState extends State<MobileVerify> {
                   style: TextStyle(fontSize: 15)),
             ),
             addVerticalSpace(50),
-            textField(mobileNumber, "Mobile Number", true, false),
+            textField(username, "Username", true, false, 1, null),
+            addVerticalSpace(20),
+            textField(mobileNumber, "Mobile Number", true, false, 1, 10),
             addVerticalSpace(60),
             Button(
                 loading: loading,

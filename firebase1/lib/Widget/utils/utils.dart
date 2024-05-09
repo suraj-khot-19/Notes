@@ -8,11 +8,12 @@ class Utils {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.black,
-      textColor: Colors.red[900],
+      backgroundColor: Colors.black.withOpacity(0.8),
+      textColor: Colors.white,
       fontSize: 16.0,
-      // Adding shadow for depth
       webShowClose: true,
+      webPosition: 'center',
+      webBgColor: 'linear-gradient(to right, #FF5F6D, #FFC371)',
     );
   }
 }

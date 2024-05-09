@@ -6,7 +6,7 @@ import 'package:firebase1/screens/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../Widget/support_widget/sized_box.dart';
+import '../../../Widget/support_widget/sized_box.dart';
 
 class VerifyMobileUser extends StatefulWidget {
   final String verificationId;
@@ -37,7 +37,7 @@ class _VerifyMobileUserState extends State<VerifyMobileUser> {
                   Text("Verify Mobile Number", style: TextStyle(fontSize: 15)),
             ),
             addVerticalSpace(50),
-            textField(verifyCode, "enter 6 digit code", true, true),
+            textField(verifyCode, "enter 6 digit code", true, true, 1, 6),
             addVerticalSpace(30),
             Button(
                 title: "Verify",
@@ -67,6 +67,5 @@ class _VerifyMobileUserState extends State<VerifyMobileUser> {
         ),
       ),
     );
-    ;
   }
 }

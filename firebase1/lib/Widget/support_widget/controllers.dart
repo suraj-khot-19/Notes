@@ -2,5 +2,9 @@ import 'package:flutter/material.dart';
 
 TextEditingController username = TextEditingController();
 TextEditingController password = TextEditingController();
+TextEditingController confirmPassword = TextEditingController();
 TextEditingController mobileNumber = TextEditingController();
 TextEditingController verifyCode = TextEditingController();
+TextEditingController fullName = TextEditingController();
+TextEditingController dob = TextEditingController();
+TextEditingController post = TextEditingController();

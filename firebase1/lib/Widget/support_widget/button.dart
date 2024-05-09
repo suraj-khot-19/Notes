@@ -24,7 +24,7 @@ class Button extends StatelessWidget {
           height: 50,
           width: double.infinity,
           decoration: BoxDecoration(
-              color: Colors.purple, borderRadius: BorderRadius.circular(5)),
+              color: Colors.purple, borderRadius: BorderRadius.circular(10)),
           child: Center(
               child: loading
                   ? const CircularProgressIndicator(
