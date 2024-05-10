@@ -45,6 +45,7 @@
   <tr>Mobile Sign In Method</tr>
   <br><br>
   <tr><b>part 1</b><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_1.gif" alt="vid"></tr>
+  <br><br>
   <tr><b>part 2</b> <img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_2.gif" alt="vid"></tr>
 </table>
 <br><br>
