@@ -39,10 +39,36 @@
   </tr>
 </table>
 <br><br>
+
+<br><br>
 <table>
   <tr>Mobile Sign In Method</tr>
-  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_1.gif" alt="vid"></td>
-  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_2.gif" alt="vid"></td>
-  
+  <br><br>
+  <tr><b>part 1</b><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_1.gif" alt="vid"></tr>
+  <tr><b>part 2</b> <img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_2.gif" alt="vid"></tr>
+</table>
+
+<table>
+  <tr>Edit/Update Note</tr>
+  <br><br>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes5.gif" alt="vid"></td>
+</table>
+
+<table>
+  <tr>Delete Note</tr>
+  <br><br>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes4.gif" alt="vid"></td>
+</table>
+
+<table>
+  <tr>Creating New Notes And Log Out</tr>
+  <br><br>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes3.gif" alt="vid"></td>
+</table>
+
+<table>
+  <tr>Search Filter In Notes App</tr>
+  <br><br>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes1.gif" alt="vid"></td>
 </table>
 
