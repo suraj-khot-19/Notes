@@ -1,4 +1,14 @@
 <table>
+  <tr><b>Real Time User data stored created firebase database and store data by their Uid</b></tr>
+  <br><br>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotefinal.gif" alt="vid"></td>
+</table>
+<br><br>
+
+<br><br>
+
+
+<table>
   <tr>
     <td>
       <img src="https://github.com/suraj-khot-19/img/blob/main/notes1.jpg" alt="img">
@@ -114,5 +124,28 @@
   <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes9.gif" alt="vid"></td>
 </table>
 <br><br>
+<br><br>
+<b align="center">Error Handling</b>
+<br><br>
+<br><br>
+
+<table border="2px">
+  <tr border="2px">
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnoteserror1.gif" alt="vid"></td>
+    <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnoteserror2.gif" alt="vid"></td>
+  </tr>
+
+  <tr border="2px">
+<td><img src="https://github.com/suraj-khot-19/img/blob/main/xnoteserror3.gif" alt="vid"></td>
+    <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnoteserror4.gif" alt="vid"></td>
+  </tr>
+
+
+<tr border="2px">
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnoteerror6.gif" alt="vid"></td>
+</tr>
+</table>
+
+
 
 <br><br>
