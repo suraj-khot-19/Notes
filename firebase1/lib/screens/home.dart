@@ -2,6 +2,7 @@ import 'package:firebase1/Widget/support_widget/controllers.dart';
 import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/Widget/utils/all_management.dart';
 import 'package:firebase1/Widget/utils/exit_confirm.dart';
+import 'package:firebase1/Widget/utils/utils.dart';
 import 'package:firebase1/screens/add_note.dart';
 import 'package:firebase1/verify_screens/auth/Email/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -22,31 +23,38 @@ class MyHome extends StatefulWidget {
 class _MyHomeState extends State<MyHome> {
   final _auth = FirebaseAuth.instance;
   final ref = FirebaseDatabase.instance.ref();
+  String searchFilterString = "";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: SizedBox(
-            height: 40,
-            width: 40,
-            child: Image.asset(
-              'assets/images/app_logo.png',
-              fit: BoxFit.contain,
-            )),
         automaticallyImplyLeading: false,
-        title: Text(
-          StringManger().appName,
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            shadows: [
-              Shadow(
-                color: Colors.pink.withOpacity(0.8),
-                offset: Offset(1.0, 1.0),
-                blurRadius: 3.0,
+        leading: Icon(Icons.menu),
+        title: Row(
+          children: [
+            SizedBox(
+                height: 50,
+                width: 30,
+                child: Image.asset(
+                  'assets/images/app12.png',
+                  fit: BoxFit.contain,
+                )),
+            addHorizontalSpace(5),
+            Text(
+              StringManger().appName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                shadows: [
+                  Shadow(
+                    color: Colors.pink.withOpacity(0.8),
+                    offset: Offset(1.0, 1.0),
+                    blurRadius: 3.0,
+                  ),
+                ],
               ),
-            ],
-          ),
+            )
+          ],
         ),
         actions: [
           Row(
@@ -64,10 +72,24 @@ class _MyHomeState extends State<MyHome> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(18.0),
+        padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Column(
           children: [
             const ExitConfirmationDialog(),
+            addVerticalSpace(10),
+            TextFormField(
+              controller: searchFilterController,
+              decoration: InputDecoration(
+                  hintText: "Search For Note",
+                  border: OutlineInputBorder(gapPadding: 16),
+                  labelText: "Search "),
+              onChanged: (String value) {
+                setState(() {
+                  searchFilterString = value;
+                });
+              },
+            ),
+            addVerticalSpace(20),
             Expanded(
               child: FirebaseAnimatedList(
                   defaultChild: SizedBox(
@@ -86,31 +108,77 @@ class _MyHomeState extends State<MyHome> {
                   ),
                   query: ref.child('UserData').child(_auth.currentUser!.uid),
                   itemBuilder: (context, snapshot, animation, index) {
-                    return ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      tileColor: Colors.grey[900],
-                      leading:
-                          Icon(Icons.note_add_rounded, color: Colors.purple),
-                      isThreeLine: true,
-                      title: Text(
-                        snapshot.child('Note').value.toString(),
-                      ),
-                      subtitle: Text(
-                        snapshot.child('Date').value.toString(),
-                      ),
-                      trailing: SizedBox(
-                        width: 80,
-                        child: Row(
+                    String finalTitle = snapshot.child('Note').value.toString();
+
+                    if (searchFilterString.isEmpty) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        tileColor: Colors.grey[900],
+                        leading:
+                            Icon(Icons.note_add_rounded, color: Colors.purple),
+                        isThreeLine: true,
+                        title: Text(
+                          snapshot.child('Note').value.toString(),
+                        ),
+                        subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Icon(Icons.edit, color: Colors.blue),
-                            Icon(Icons.delete_forever, color: Colors.red),
+                            Text(
+                              snapshot.child('Date').value.toString(),
+                            ),
                           ],
                         ),
-                      ),
-                      hoverColor: Colors.blue[100],
-                    );
+                        trailing: SizedBox(
+                          width: 80,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                  onTap: () {
+                                    editNote(finalTitle,
+                                        snapshot.child('Id').value.toString());
+                                  },
+                                  child: Icon(Icons.edit, color: Colors.blue)),
+                              InkWell(
+                                  onTap: () {
+                                    deleteNote(finalTitle,
+                                        snapshot.child('Id').value.toString());
+                                  },
+                                  child: Icon(Icons.delete_forever,
+                                      color: Colors.red)),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else if (finalTitle.toLowerCase().toString().contains(
+                        searchFilterString.toLowerCase().toString())) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        tileColor: Colors.grey[900],
+                        leading:
+                            Icon(Icons.note_add_rounded, color: Colors.purple),
+                        isThreeLine: true,
+                        title: Text(
+                          snapshot.child('Note').value.toString(),
+                        ),
+                        subtitle: Text(
+                          snapshot.child('Date').value.toString(),
+                        ),
+                        trailing: SizedBox(
+                          width: 80,
+                          child: Row(
+                            children: [
+                              Icon(Icons.edit, color: Colors.blue),
+                              Icon(Icons.delete_forever, color: Colors.red),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
                   }),
             ),
           ],
@@ -122,9 +190,110 @@ class _MyHomeState extends State<MyHome> {
             return const MyPostScreen();
           }));
         },
-        child: const Icon(Icons.post_add),
+        child: const Icon(Icons.note_add_outlined),
       ),
     );
+  }
+
+//edit code
+  Future<void> editNote(String title, String id) async {
+    editController.text = title;
+    String day = DateTime.now().day.toString();
+    String month = DateTime.now().month.toString();
+    String year = DateTime.now().year.toString();
+    String date = "$day/$month/$year";
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shadowColor: Colors.white,
+            icon: const Icon(Icons.edit_document),
+            content: Container(
+              child: TextFormField(
+                controller: editController,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(20),
+                  labelText: "Update Note",
+                  border: OutlineInputBorder(gapPadding: 16),
+                ),
+                maxLines: 2,
+              ),
+            ),
+            title: Center(
+                child: Text(
+              "update",
+            )),
+            actionsPadding: EdgeInsets.symmetric(horizontal: 20),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "cancel",
+                  )),
+              TextButton(
+                  onPressed: () {
+                    ref
+                        .child('UserData')
+                        .child(_auth.currentUser!.uid)
+                        .child(id)
+                        .update({
+                      'Id': id,
+                      'Date': date,
+                      'Note': editController.text.toString().trim(),
+                    }).then((value) {
+                      Utils().toastMessage("Note Updated!");
+                    }).onError((error, stackTrace) {
+                      Utils().toastMessage(error.toString());
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "update?",
+                  )),
+            ],
+          );
+        });
+  }
+
+//delete code
+  Future<void> deleteNote(String title, String id) async {
+    deleteController.text = title;
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            icon: Icon(Icons.delete),
+            content: SizedBox(
+              width: double.infinity,
+              child: Text(title),
+            ),
+            title: Text("Delete Note"),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("cancel")),
+              TextButton(
+                  onPressed: () {
+                    ref
+                        .child('UserData')
+                        .child(_auth.currentUser!.uid.toString())
+                        .child(id)
+                        .remove()
+                        .then((value) {
+                      Utils().toastMessage("Note Deleted!");
+                    }).onError((error, stackTrace) {
+                      Utils().toastMessage(error.toString());
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Text("delete?")),
+            ],
+          );
+        });
   }
 
   //exit confirmation msg

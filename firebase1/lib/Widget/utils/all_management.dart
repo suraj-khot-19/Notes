@@ -7,7 +7,7 @@ class StringManger {
 
 class IconManager {
   Image appLogo = Image.asset(
-    'assets/images/app_logo.png',
+    'assets/images/app12.png',
     fit: BoxFit.contain,
   );
 }

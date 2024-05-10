@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 
 class MyPostScreen extends StatefulWidget {
   const MyPostScreen({super.key});
-// 7TfGJVwa1aWSy4PD0i9L6tadVtf2
   @override
   State<MyPostScreen> createState() => _MyPostScreenState();
 }
@@ -18,6 +17,19 @@ class MyPostScreen extends StatefulWidget {
 class _MyPostScreenState extends State<MyPostScreen> {
   bool loading = false;
   final _auth = FirebaseAuth.instance;
+  final formKey = GlobalKey<FormState>();
+  bool _isMounted = false;
+  @override
+  void initState() {
+    super.initState();
+    _isMounted = true;
+  }
+
+  @override
+  void dispose() {
+    _isMounted = false;
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -72,51 +84,66 @@ class _MyPostScreenState extends State<MyPostScreen> {
                 ),
               ),
               addVerticalSpace(80),
-              textField(
-                post,
-                "What is in your Mind?",
-                true,
-                false,
-                4,
+              Form(
+                key: formKey,
+                child: textField(
+                  note,
+                  "What is in your Mind?",
+                  true,
+                  false,
+                  4,
+                ),
               ),
               addVerticalSpace(50),
               Button(
-                loading: loading,
-                title: "Add",
-                onClick: () {
-                  setState(() {
-                    loading = true;
-                  });
+                  loading: loading,
+                  title: "Add",
+                  onClick: () {
+                    if (formKey.currentState!.validate()) {
+                      setState(() {
+                        loading = true;
+                      });
 
-                  //logic to get user
-                  User? myUser = _auth.currentUser;
-                  String uid = myUser!.uid;
-                  final databaseRef =
-                      FirebaseDatabase.instance.ref('UserData').child(uid);
-                  String day = DateTime.now().day.toString();
-                  String month = DateTime.now().month.toString();
-                  String year = DateTime.now().year.toString();
-                  String date = "$day/$month/$year";
-                  String id = DateTime.now().microsecondsSinceEpoch.toString();
-                  databaseRef.child(id).set({
-                    'Date': date,
-                    'Note': post.text.toString().trim(),
-                  }).then((value) {
-                    Utils().toastMessage('Note added. ..');
-                    setState(() {
-                      loading = false;
-                    });
-                  }).onError((error, stackTrace) {
-                    Utils().toastMessage(error.toString());
-                    setState(() {
-                      loading = false;
-                    });
-                  });
-                  setState(() {
-                    post.clear();
-                  });
-                },
-              ),
+                      //logic to get user
+                      User? myUser = _auth.currentUser;
+                      String uid = myUser!.uid;
+                      final databaseRef =
+                          FirebaseDatabase.instance.ref('UserData').child(uid);
+                      String day = DateTime.now().day.toString();
+                      String month = DateTime.now().month.toString();
+                      String year = DateTime.now().year.toString();
+                      String date = "$day/$month/$year";
+                      String id =
+                          DateTime.now().microsecondsSinceEpoch.toString();
+                      databaseRef.child(id).set({
+                        'Id': id,
+                        'Date': date,
+                        'Note': note.text.toString().trim(),
+                      }).then((value) {
+                        if (_isMounted) {
+                          // Check if the widget is still mounted
+                          Utils().toastMessage('Note added...');
+                          setState(() {
+                            loading = false;
+                          });
+
+                          // Navigate back to the home page
+                          Navigator.pop(context);
+                        }
+                      }).onError((error, stackTrace) {
+                        if (_isMounted) {
+                          // Check if the widget is still mounted
+                          Utils().toastMessage(error.toString());
+                          setState(() {
+                            loading = false;
+                          });
+                        }
+                      });
+                      setState(() {
+                        note.clear();
+                      });
+                    }
+                  }),
             ],
           ),
         ),

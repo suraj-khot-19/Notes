@@ -18,6 +18,7 @@ Widget textField(TextEditingController controller, String title,
       }
       return null;
     },
+    textAlign: TextAlign.left,
   );
 }
 
