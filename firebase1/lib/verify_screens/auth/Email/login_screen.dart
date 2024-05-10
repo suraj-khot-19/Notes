@@ -21,19 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   bool loading = false;
   final _formKey = GlobalKey<FormState>();
-  @override
-  void initState() {
-    super.initState();
-    username = TextEditingController();
-    password = TextEditingController();
-  }
-
-  @override
-  void dispose() {
-    username.dispose();
-    password.dispose();
-    super.dispose();
-  }
 
   void loginForUser() {
     _auth
@@ -47,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const MyHome(),
+            builder: (context) => MyHome(),
           ));
     }).onError((error, stackTrace) {
       Utils().toastMessage(error.toString());
@@ -61,7 +48,19 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringManger().appName),
+        title: Text(
+          StringManger().appName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            shadows: [
+              Shadow(
+                color: Colors.pink.withOpacity(0.8),
+                offset: Offset(1.0, 1.0),
+                blurRadius: 3.0,
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -94,6 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
 
                           loginForUser();
+                          setState(() {
+                            username.clear();
+                            password.clear();
+                          });
                         }
                       }),
                   addVerticalSpace(30),

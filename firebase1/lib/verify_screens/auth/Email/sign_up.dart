@@ -76,7 +76,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(StringManger().appName),
+        title: Text(
+          StringManger().appName,
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            shadows: [
+              Shadow(
+                color: Colors.pink.withOpacity(0.8),
+                offset: Offset(1.0, 1.0),
+                blurRadius: 3.0,
+              ),
+            ],
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -129,6 +141,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                         loginErrorHandling();
                       }
+                      setState(() {
+                        username.clear();
+                        fullName.clear();
+                        password.clear();
+                        confirmPassword.clear();
+                      });
                     }),
                 addVerticalSpace(25),
                 Row(

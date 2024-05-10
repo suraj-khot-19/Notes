@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class StringManger {
-  String appName = "Suraj";
+  String appName = "Note";
 }
 
 class IconManager {

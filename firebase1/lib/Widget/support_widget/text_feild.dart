@@ -13,7 +13,7 @@ Widget textField(TextEditingController controller, String title,
       focusColor: Colors.white,
     ),
     validator: (value) {
-      if (value == null || value.isEmpty) {
+      if (isRequired == true && (value == null || value.isEmpty)) {
         return 'Please enter $title';
       }
       return null;
@@ -34,9 +34,9 @@ Widget emailTextFeild(TextEditingController controller, String title,
       hintText: "$title@gmail.com",
     ),
     validator: (value) {
-      if (isRequired && (value == null || value.isEmpty)) {
+      if (value == null || value.isEmpty) {
         return 'Please enter $title';
-      } else if (!value!.contains("@gmail.com")) {
+      } else if (!value.contains("@gmail.com")) {
         return 'your email must constain @gmail.com';
       }
       return null;
