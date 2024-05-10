@@ -38,3 +38,11 @@
     </td>
   </tr>
 </table>
+<br><br>
+<table>
+  <tr>Mobile Sign In Method</tr>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_1.gif" alt="vid"></td>
+  <td><img src="https://github.com/suraj-khot-19/img/blob/main/xnotes2_2.gif" alt="vid"></td>
+  
+</table>
+
