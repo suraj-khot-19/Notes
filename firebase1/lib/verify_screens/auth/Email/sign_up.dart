@@ -6,7 +6,6 @@ import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/Widget/support_widget/text_feild.dart';
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
-
 import '../../../Widget/utils/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -20,15 +19,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
   bool loading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    fullName.dispose();
-    username.dispose();
-    password.dispose();
-    confirmPassword.dispose();
-    super.dispose();
-  }
 
 //password check
   bool checkPass() {
@@ -141,12 +131,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         });
                         loginErrorHandling();
                       }
-                      setState(() {
-                        username.clear();
-                        fullName.clear();
-                        password.clear();
-                        confirmPassword.clear();
-                      });
                     }),
                 addVerticalSpace(25),
                 Row(

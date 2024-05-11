@@ -2,7 +2,6 @@ import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/firebase_services/splash_service.dart';
 
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,15 +26,9 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const LoadingIndicator(
-            indicatorType: Indicator.ballRotateChase,
-            colors: [
-              Colors.red,
-              Colors.blue,
-              Colors.pink,
-              Colors.cyan,
-            ],
-            strokeWidth: 1,
+          const CircularProgressIndicator(
+            color: Colors.cyan,
+            strokeWidth: 5,
           ),
           addVerticalSpace(30),
           const Text(

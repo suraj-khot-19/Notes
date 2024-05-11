@@ -41,7 +41,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
                 height: 35,
                 width: 35,
                 child: Image.asset(
-                  'assets/images/app_logo.png',
+                  'assets/images/app12.png',
                   fit: BoxFit.contain,
                 )),
             addHorizontalSpace(90),

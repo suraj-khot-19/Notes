@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_indicator/loading_indicator.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({
@@ -95,15 +94,9 @@ class _MyHomeState extends State<MyHome> {
                   defaultChild: SizedBox(
                     height: 100,
                     width: 100,
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.ballRotate,
-                      colors: [
-                        Colors.red,
-                        Colors.blue,
-                        Colors.pink,
-                        Colors.cyan,
-                      ],
-                      strokeWidth: 1,
+                    child: CircularProgressIndicator(
+                      color: Colors.cyan,
+                      strokeWidth: 5,
                     ),
                   ),
                   query: ref.child('UserData').child(_auth.currentUser!.uid),

@@ -11,3 +11,4 @@ TextEditingController note = TextEditingController();
 TextEditingController searchFilterController = TextEditingController();
 TextEditingController editController = TextEditingController();
 TextEditingController deleteController = TextEditingController();
+TextEditingController forgotPass = TextEditingController();

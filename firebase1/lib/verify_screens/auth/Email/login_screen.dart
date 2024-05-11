@@ -1,4 +1,5 @@
 import 'package:firebase1/Widget/utils/all_management.dart';
+import 'package:firebase1/verify_screens/auth/Email/forgot_password.dart';
 import 'package:firebase1/verify_screens/auth/Mobile/mobile_verify.dart';
 import 'package:firebase1/verify_screens/auth/Email/sign_up.dart';
 import 'package:firebase1/Widget/utils/utils.dart';
@@ -48,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           StringManger().appName,
           style: TextStyle(
@@ -93,13 +95,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           });
 
                           loginForUser();
-                          setState(() {
-                            username.clear();
-                            password.clear();
-                          });
                         }
                       }),
                   addVerticalSpace(30),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      child: Text("Forgot Password"),
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return ForgotPasswordScreen();
+                        }));
+                      },
+                    ),
+                  ),
+                  addVerticalSpace(5),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -142,5 +153,12 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    username.dispose();
+    password.dispose();
   }
 }
