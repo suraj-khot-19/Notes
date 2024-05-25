@@ -35,6 +35,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 30,
         title: Row(
           children: [
             SizedBox(
@@ -69,10 +70,9 @@ class _MyPostScreenState extends State<MyPostScreen> {
             children: [
               addVerticalSpace(50),
               Text(
-                "Add New Note",
+                "Create New Note",
                 style: TextStyle(
                   fontSize: 30,
-                  color: Colors.cyan,
                   fontWeight: FontWeight.bold,
                   shadows: [
                     Shadow(

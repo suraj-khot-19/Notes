@@ -3,13 +3,14 @@ import 'package:firebase1/verify_screens/auth/Email/forgot_password.dart';
 import 'package:firebase1/verify_screens/auth/Mobile/mobile_verify.dart';
 import 'package:firebase1/verify_screens/auth/Email/sign_up.dart';
 import 'package:firebase1/Widget/utils/utils.dart';
-import 'package:firebase1/screens/home.dart';
 import 'package:firebase1/Widget/support_widget/button.dart';
 import 'package:firebase1/Widget/support_widget/controllers.dart';
 import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/Widget/support_widget/text_feild.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../../screens/home.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -22,6 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _auth = FirebaseAuth.instance;
   bool loading = false;
   final _formKey = GlobalKey<FormState>();
+  bool _obscureText = true;
 
   void loginForUser() {
     _auth
@@ -35,6 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.push(
           context,
           MaterialPageRoute(
+            // builder: (context) => MyHome(),
             builder: (context) => MyHome(),
           ));
     }).onError((error, stackTrace) {
@@ -77,12 +80,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   addVerticalSpace(50),
                   emailTextFeild(username, "Email", true, false, 1),
                   addVerticalSpace(20),
-                  textField(
-                    password,
-                    "Password",
-                    true,
-                    true,
-                    1,
+                  // password logic
+
+                  TextFormField(
+                    obscureText: _obscureText,
+                    controller: password,
+                    decoration: InputDecoration(
+                      suffix: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _obscureText = !_obscureText;
+                          });
+                        },
+                        child: Icon(_obscureText
+                            ? Icons.visibility_off
+                            : Icons.visibility),
+                      ),
+                      hintText: "password",
+                      border: const OutlineInputBorder(gapPadding: 20.0),
+                      labelText: "password",
+                      focusColor: Colors.white,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter password';
+                      }
+                      return null;
+                    },
+                    textAlign: TextAlign.left,
                   ),
                   addVerticalSpace(60),
                   Button(
@@ -153,12 +178,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    username.dispose();
-    password.dispose();
   }
 }

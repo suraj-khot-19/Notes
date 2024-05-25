@@ -9,6 +9,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({
@@ -29,7 +30,12 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: Icon(Icons.menu),
+        leading: GestureDetector(
+            onTap: onClickBtn,
+            child: Icon(
+              Icons.menu_sharp,
+            )),
+        leadingWidth: 25,
         title: Row(
           children: [
             SizedBox(
@@ -39,7 +45,7 @@ class _MyHomeState extends State<MyHome> {
                   'assets/images/app12.png',
                   fit: BoxFit.contain,
                 )),
-            addHorizontalSpace(5),
+            addHorizontalSpace(80),
             Text(
               StringManger().appName,
               style: TextStyle(
@@ -58,7 +64,12 @@ class _MyHomeState extends State<MyHome> {
         actions: [
           Row(
             children: [
-              Text(username.text.toString()),
+              IconButton(
+                onPressed: () {
+                  accountbtn();
+                },
+                icon: Icon(Icons.account_box),
+              ),
               IconButton(
                 onPressed: () => _confirmLogout(),
                 icon: const Icon(
@@ -91,12 +102,13 @@ class _MyHomeState extends State<MyHome> {
             addVerticalSpace(20),
             Expanded(
               child: FirebaseAnimatedList(
-                  defaultChild: SizedBox(
-                    height: 100,
-                    width: 100,
-                    child: CircularProgressIndicator(
-                      color: Colors.cyan,
-                      strokeWidth: 5,
+                  defaultChild: Center(
+                    child: Text(
+                      "Loading...",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   query: ref.child('UserData').child(_auth.currentUser!.uid),
@@ -183,7 +195,7 @@ class _MyHomeState extends State<MyHome> {
             return const MyPostScreen();
           }));
         },
-        child: const Icon(Icons.note_add_outlined),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -332,6 +344,95 @@ class _MyHomeState extends State<MyHome> {
                 child: const Text(
                   "Logout",
                   style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  //btn confirmation msg
+  Future<void> onClickBtn() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: AlertDialog(
+            shadowColor: Colors.red,
+            iconColor: Colors.black,
+            backgroundColor: Colors.white,
+            titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
+            icon: const Icon(Icons.code_sharp),
+            title: const Text(
+              "About App",
+            ),
+            content: const Text(
+              "This App Is Designed By Suraj Khot",
+            ),
+            contentTextStyle: TextStyle(color: Colors.black),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Cancel",
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              TextButton(
+                onPressed: () async {
+                  const url = 'https://www.linkedin.com/in/khot-suraj';
+                  if (await canLaunch(url)) {
+                    await launch(url);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(url)),
+                    );
+                  }
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Visit Profile",
+                  style: TextStyle(color: Colors.black, fontSize: 15),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  //account btn msg
+  Future<void> accountbtn() async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Center(
+          child: AlertDialog(
+            shadowColor: Colors.red,
+            iconColor: Colors.black,
+            backgroundColor: Colors.white,
+            titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
+            icon: const Icon(Icons.code_sharp),
+            title: const Text(
+              "About You",
+            ),
+            content: Text(
+              username.text.toString(),
+            ),
+            contentTextStyle: TextStyle(color: Colors.black),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Ok",
+                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

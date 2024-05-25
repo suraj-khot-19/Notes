@@ -1,8 +1,9 @@
 import 'dart:async';
-import 'package:firebase1/screens/home.dart';
 import 'package:firebase1/verify_screens/auth/Email/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../screens/home.dart';
 
 final _auth = FirebaseAuth.instance;
 final user = _auth.currentUser;
@@ -15,6 +16,7 @@ class SplashService {
         () => Navigator.push(
           context,
           MaterialPageRoute(
+            // builder: (context) => const MyHome(),
             builder: (context) => const MyHome(),
           ),
         ),

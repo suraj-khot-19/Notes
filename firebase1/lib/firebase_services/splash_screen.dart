@@ -26,9 +26,13 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const CircularProgressIndicator(
-            color: Colors.cyan,
-            strokeWidth: 5,
+          SizedBox(
+            height: 30,
+            width: 30,
+            child: const CircularProgressIndicator(
+              color: Colors.cyan,
+              strokeWidth: 5,
+            ),
           ),
           addVerticalSpace(30),
           const Text(

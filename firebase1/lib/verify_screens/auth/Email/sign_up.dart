@@ -16,56 +16,17 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  bool _obscureText = true;
+  bool _obscureText2 = true;
   bool loading = false;
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
-
-//password check
-  bool checkPass() {
-    if (password.text.toString() != confirmPassword.text.toString()) {
-      Utils().toastMessage("password not match!");
-      setState(() {
-        loading = false;
-      });
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-//firebase authentication
-  void loginErrorHandling() {
-    if (checkPass()) {
-      _auth
-          .createUserWithEmailAndPassword(
-              email: username.text.toString(),
-              password: password.text.toString())
-          .then((value) {
-        setState(() {
-          loading = false;
-        });
-
-        Utils().toastMessage("Now You Login With Your Creditials");
-        // Navigate to login screen after successful registration
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-        );
-      }).onError((error, stackTrace) {
-        Utils().toastMessage(error.toString());
-        setState(() {
-          loading = false;
-        });
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: Text(
           StringManger().appName,
           style: TextStyle(
@@ -94,33 +55,54 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   child: Text("Create your account",
                       style: TextStyle(fontSize: 25)),
                 ),
-                addVerticalSpace(18),
-                textField(
-                  fullName,
-                  "Full Name",
-                  true,
-                  false,
-                  1,
-                ),
+
                 addVerticalSpace(18),
                 emailTextFeild(username, "Email", true, false, 1),
                 addVerticalSpace(18),
-                textField(
-                  password,
-                  "Password",
-                  true,
-                  true,
-                  1,
+                //password logic
+                TextFormField(
+                  obscureText: _obscureText,
+                  controller: password,
+                  decoration: InputDecoration(
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText
+                            ? Icons.visibility_off_sharp
+                            : Icons.visibility_sharp,
+                      ),
+                      onPressed: _toggleObscured,
+                    ),
+                    hintText: "password",
+                    border: const OutlineInputBorder(gapPadding: 20.0),
+                    labelText: "password",
+                    focusColor: Colors.white,
+                  ),
+                  validator: _validatePassword,
+                  textAlign: TextAlign.left,
                 ),
                 addVerticalSpace(18),
-                textField(
-                  confirmPassword,
-                  "Confirm Password",
-                  true,
-                  true,
-                  1,
+//confirm password
+                TextFormField(
+                  controller: confirmPassword,
+                  obscureText: _obscureText2,
+                  decoration: InputDecoration(
+                    hintText: "Confirm password",
+                    border: const OutlineInputBorder(gapPadding: 20.0),
+                    labelText: "Confirm password",
+                    focusColor: Colors.white,
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureText2
+                            ? Icons.visibility_off_sharp
+                            : Icons.visibility_sharp,
+                      ),
+                      onPressed: _toggleConfirmObscured,
+                    ),
+                  ),
+                  validator: _validateConfirmPassword,
+                  textAlign: TextAlign.left,
                 ),
-                addVerticalSpace(20),
+                addVerticalSpace(30),
                 Button(
                     title: "Sign Up",
                     loading: loading,
@@ -156,5 +138,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       ),
     );
+  }
+
+//pass btn
+  void _toggleObscured() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
+//confirm pass btn
+  void _toggleConfirmObscured() {
+    setState(() {
+      _obscureText2 = !_obscureText2;
+    });
+  }
+
+//password conditins
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 8) {
+      return 'Password must be at least 8 characters long';
+    }
+    if (!RegExp(r'[A-Z]').hasMatch(value)) {
+      return 'Password must contain at least one uppercase letter';
+    }
+    if (!RegExp(r'[a-z]').hasMatch(value)) {
+      return 'Password must contain at least one lowercase letter';
+    }
+    if (!RegExp(r'[0-9]').hasMatch(value)) {
+      return 'Password must contain at least one digit';
+    }
+    if (!RegExp(r'[!@#\$&*~]').hasMatch(value)) {
+      return 'Password must contain at least one special character';
+    }
+    if (RegExp(r'\s').hasMatch(value)) {
+      return 'Password must not contain spaces';
+    }
+    return null;
+  }
+
+//confirm pass
+  String? _validateConfirmPassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please confirm your password';
+    }
+    if (value != password.text) {
+      return 'Passwords do not match';
+    }
+    return null;
+  }
+
+//firebase authentication
+  void loginErrorHandling() {
+    _auth
+        .createUserWithEmailAndPassword(
+            email: username.text.toString(), password: password.text.toString())
+        .then((value) {
+      setState(() {
+        loading = false;
+      });
+
+      Utils().toastMessage("Now You Login With Your Creditials");
+      // Navigate to login screen after successful registration
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    }).onError((error, stackTrace) {
+      Utils().toastMessage(error.toString());
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }

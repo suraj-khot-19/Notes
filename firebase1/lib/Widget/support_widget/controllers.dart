@@ -12,3 +12,7 @@ TextEditingController searchFilterController = TextEditingController();
 TextEditingController editController = TextEditingController();
 TextEditingController deleteController = TextEditingController();
 TextEditingController forgotPass = TextEditingController();
+TextEditingController noteFireStore = TextEditingController();
+
+TextEditingController FireStoreEditController = TextEditingController();
+TextEditingController FireStoreDeleteController = TextEditingController();
