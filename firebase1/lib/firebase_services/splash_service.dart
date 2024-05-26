@@ -12,7 +12,7 @@ class SplashService {
   void isLogin(BuildContext context) {
     if (user != null) {
       Timer(
-        const Duration(seconds: 4),
+        const Duration(seconds: 2),
         () => Navigator.push(
           context,
           MaterialPageRoute(
@@ -23,7 +23,7 @@ class SplashService {
       );
     } else {
       Timer(
-        const Duration(seconds: 4),
+        const Duration(seconds: 2),
         () => Navigator.push(
           context,
           MaterialPageRoute(

@@ -9,7 +9,6 @@ import 'package:firebase1/Widget/support_widget/sized_box.dart';
 import 'package:firebase1/Widget/support_widget/text_feild.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import '../../../screens/home.dart';
 
 class LoginScreen extends StatefulWidget {

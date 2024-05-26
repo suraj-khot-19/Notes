@@ -26,20 +26,18 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 30,
-            width: 30,
+          Center(
             child: const CircularProgressIndicator(
               color: Colors.cyan,
-              strokeWidth: 5,
+              strokeWidth: 3,
             ),
           ),
           addVerticalSpace(30),
           const Text(
-            "Loading ...",
+            "Loading...",
             style: TextStyle(
               fontSize: 20,
-              color: Colors.white,
+              color: Colors.cyan,
             ),
           ),
         ],

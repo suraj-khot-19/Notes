@@ -106,7 +106,7 @@ class _MyHomeState extends State<MyHome> {
                     child: Text(
                       "Loading...",
                       style: TextStyle(
-                        fontSize: 30,
+                        fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -116,45 +116,62 @@ class _MyHomeState extends State<MyHome> {
                     String finalTitle = snapshot.child('Note').value.toString();
 
                     if (searchFilterString.isEmpty) {
-                      return ListTile(
-                        contentPadding: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
-                        tileColor: Colors.grey[900],
-                        leading:
-                            Icon(Icons.note_add_rounded, color: Colors.purple),
-                        isThreeLine: true,
-                        title: Text(
-                          snapshot.child('Note').value.toString(),
-                        ),
-                        subtitle: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              snapshot.child('Date').value.toString(),
+                      return Column(
+                        children: [
+                          ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 16.0, vertical: 8.0),
+                            tileColor: Colors.grey[900],
+                            leading: Icon(Icons.note_add_rounded,
+                                color: Colors.purple),
+                            isThreeLine: true,
+                            title: Text(
+                              snapshot.child('Note').value.toString(),
                             ),
-                          ],
-                        ),
-                        trailing: SizedBox(
-                          width: 80,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                  onTap: () {
-                                    editNote(finalTitle,
-                                        snapshot.child('Id').value.toString());
-                                  },
-                                  child: Icon(Icons.edit, color: Colors.blue)),
-                              InkWell(
-                                  onTap: () {
-                                    deleteNote(finalTitle,
-                                        snapshot.child('Id').value.toString());
-                                  },
-                                  child: Icon(Icons.delete_forever,
-                                      color: Colors.red)),
-                            ],
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  snapshot.child('Date').value.toString(),
+                                ),
+                              ],
+                            ),
+                            trailing: SizedBox(
+                              width: 80,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        editNote(
+                                            finalTitle,
+                                            snapshot
+                                                .child('Id')
+                                                .value
+                                                .toString());
+                                      },
+                                      child:
+                                          Icon(Icons.edit, color: Colors.blue)),
+                                  InkWell(
+                                      onTap: () {
+                                        deleteNote(
+                                            finalTitle,
+                                            snapshot
+                                                .child('Id')
+                                                .value
+                                                .toString());
+                                      },
+                                      child: Icon(Icons.delete_forever,
+                                          color: Colors.red)),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
+                          Divider(
+                            color: Colors.blueGrey,
+                          ),
+                        ],
                       );
                     } else if (finalTitle.toLowerCase().toString().contains(
                         searchFilterString.toLowerCase().toString())) {
@@ -221,7 +238,7 @@ class _MyHomeState extends State<MyHome> {
                   labelText: "Update Note",
                   border: OutlineInputBorder(gapPadding: 16),
                 ),
-                maxLines: 2,
+                maxLines: 4,
               ),
             ),
             title: Center(
