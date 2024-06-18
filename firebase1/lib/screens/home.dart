@@ -30,20 +30,18 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        leading: GestureDetector(
+        leading: InkWell(
             onTap: onClickBtn,
             child: Icon(
               Icons.menu_sharp,
             )),
-        leadingWidth: 25,
         title: Row(
           children: [
-            SizedBox(
-                height: 50,
-                width: 30,
+            Container(
+                height: 35,
                 child: Image.asset(
                   'assets/images/app12.png',
-                  fit: BoxFit.contain,
+                  fit: BoxFit.fitHeight,
                 )),
             addHorizontalSpace(80),
             Text(
@@ -65,12 +63,6 @@ class _MyHomeState extends State<MyHome> {
           Row(
             children: [
               IconButton(
-                onPressed: () {
-                  accountbtn();
-                },
-                icon: Icon(Icons.account_box),
-              ),
-              IconButton(
                 onPressed: () => _confirmLogout(),
                 icon: const Icon(
                   Icons.logout,
@@ -90,9 +82,25 @@ class _MyHomeState extends State<MyHome> {
             TextFormField(
               controller: searchFilterController,
               decoration: InputDecoration(
-                  hintText: "Search For Note",
-                  border: OutlineInputBorder(gapPadding: 16),
-                  labelText: "Search "),
+                hintText: "Search For Note",
+                border: OutlineInputBorder(gapPadding: 16),
+                labelText: "Search",
+                suffixIcon: searchFilterController.text.isNotEmpty
+                    ? GestureDetector(
+                        onTap: () {
+                          searchFilterController
+                              .clear(); // Clear the text field
+                          FocusScope.of(context)
+                              .unfocus(); // Exit the text field (lose focus)
+                          setState(() {
+                            searchFilterString =
+                                ""; // Optionally clear your search filter variable
+                          });
+                        },
+                        child: Icon(Icons.clear),
+                      )
+                    : null, // Only show suffixIcon when there's text
+              ),
               onChanged: (String value) {
                 setState(() {
                   searchFilterString = value;
@@ -199,7 +207,25 @@ class _MyHomeState extends State<MyHome> {
                         ),
                       );
                     } else {
-                      return Container();
+                      return Column(
+                        children: [
+                          Container(
+                            height: 400,
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage("assets/images/image.png"),
+                                  fit: BoxFit.cover),
+                            ),
+                          ),
+                          addVerticalSpace(10),
+                          Text(
+                            "Sorry Search Not Found",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 18),
+                          )
+                        ],
+                      );
                     }
                   }),
             ),
@@ -395,15 +421,15 @@ class _MyHomeState extends State<MyHome> {
                   Navigator.of(context).pop();
                 },
                 child: const Text(
-                  "Cancel",
+                  "Ok",
                   style: TextStyle(color: Colors.black),
                 ),
               ),
               TextButton(
                 onPressed: () async {
                   const url = 'https://www.linkedin.com/in/khot-suraj';
-                  if (await canLaunch(url)) {
-                    await launch(url);
+                  if (await canLaunchUrl(Uri.parse(url))) {
+                    await launchUrl(Uri.parse(url));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(url)),
@@ -414,42 +440,6 @@ class _MyHomeState extends State<MyHome> {
                 child: const Text(
                   "Visit Profile",
                   style: TextStyle(color: Colors.black, fontSize: 15),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  //account btn msg
-  Future<void> accountbtn() async {
-    return showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Center(
-          child: AlertDialog(
-            shadowColor: Colors.red,
-            iconColor: Colors.black,
-            backgroundColor: Colors.white,
-            titleTextStyle: const TextStyle(color: Colors.black, fontSize: 20),
-            icon: const Icon(Icons.code_sharp),
-            title: const Text(
-              "About You",
-            ),
-            content: Text(
-              username.text.toString(),
-            ),
-            contentTextStyle: TextStyle(color: Colors.black),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text(
-                  "Ok",
-                  style: TextStyle(color: Colors.black),
                 ),
               ),
             ],

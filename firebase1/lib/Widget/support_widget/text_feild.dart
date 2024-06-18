@@ -11,6 +11,8 @@ Widget textField(TextEditingController controller, String title,
       hintText: title,
       labelText: title,
       focusColor: Colors.white,
+      contentPadding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+      alignLabelWithHint: true,
     ),
     validator: (value) {
       if (isRequired == true && (value == null || value.isEmpty)) {

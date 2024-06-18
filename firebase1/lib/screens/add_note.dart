@@ -91,7 +91,7 @@ class _MyPostScreenState extends State<MyPostScreen> {
                   "What is in your Mind?",
                   true,
                   false,
-                  4,
+                  5,
                 ),
               ),
               addVerticalSpace(50),
